@@ -34,5 +34,5 @@ vim.opt.sidescrolloff = 8
 
 vim.opt.confirm = true
 vim.opt.undofile = true
-vim.opt.backup = true
-vim.opt.backupdir:remove('')
+-- vim.opt.backup = true
+-- vim.opt.backupdir:remove('')
