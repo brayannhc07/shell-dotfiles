@@ -1,0 +1,74 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "console_title_template": " {{ .Folder }} :: {{if .Root}}Admin{{end}}",
+  "palette": {
+    "main-bg": "#24283b",
+    "terminal-red": "#F97BB0",
+    "pistachio-green": "#9ece6a",
+    "terminal-green": "#75C2B3",
+    "terminal-yellow": "#D7C781",
+    "terminal-blue": "#82E6FF",
+    "celeste-blue": "#b4f9f8",
+    "light-sky-blue": "#87CEFA",
+    "terminal-white": "#c0caf5",
+    "white-blue": "#a9b1d6",
+    "blue-bell": "#9aa5ce",
+    "pastal-grey": "#cfc9c2",
+    "terminal-magenta": "#948AE3",
+    "blue-black": "#565f89",
+    "terminal-black": "#414868",
+    "t-background": "p:main-bg"
+  },
+  "blocks": [
+    {
+      "alignment": "left",
+      "segments": [
+        {
+          "type": "path",
+          "style": "plain",
+          "foreground": "p:terminal-blue",
+          "properties": {
+            "style": "folder"
+          },
+          "template": "{{ .Path }} "
+        },
+        {
+          "type": "git",
+          "style": "plain",
+          "foreground": "p:light-sky-blue",
+          "foreground_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}p:terminal-red{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0)}}p:light-sky-blue {{ end }}",
+            "{{ if gt .Ahead 0 }}p:terminal-blue{{ end }}",
+            "{{ if gt .Behind 0 }}p:celeste-blue{{ end }}"
+          ],
+          "template": "<p:terminal-green>git(</>{{ .HEAD}}<p:terminal-green>)</>",
+	  "properties": {
+	    "branch_icon": "",
+	    "fetch_status": true
+	  }
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "text",
+          "style": "plain",
+	  "background": "p:transparent",
+          "foreground": "p:terminal-blue",
+          "template": "\u279c"
+        }
+
+      ],
+      "type": "prompt"
+    }
+  ],
+  "final_space": true,
+  "version": 2
+}
+
+
