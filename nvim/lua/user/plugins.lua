@@ -26,6 +26,20 @@ local use = require('packer').use
 -- Packer can manage itself.
 use('wbthomason/packer.nvim')
 
+-- Monokai Pro theme.
+use {
+  "loctvl842/monokai-pro.nvim",
+  config = function()
+    require("monokai-pro").setup({
+        transparent_background = true,
+        terminal_colors = true,
+        devicons = true,
+        filter = "pro",
+      })
+    vim.cmd('colorscheme monokai-pro')
+  end
+}
+
 -- Ayu theme.
 -- use({
 --     'ayu-theme/ayu-vim',
@@ -36,23 +50,23 @@ use('wbthomason/packer.nvim')
 --   })
 
 -- One Dark theme.
-use({
-    'jessarcher/onedark.nvim',
-    config = function()
-      vim.cmd('colorscheme onedark')
+-- use({
+--     'jessarcher/onedark.nvim',
+--     config = function()
+--       vim.cmd('colorscheme onedark')
 
-      vim.api.nvim_set_hl(0, 'FloatBorder', {
-          fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
-          bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
-        })
+--       vim.api.nvim_set_hl(0, 'FloatBorder', {
+--           fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
+--           bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
+--         })
 
-      vim.api.nvim_set_hl(0, 'CursorLineBg', {
-          fg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
-          bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
-        })
-      vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
-    end,
-  })
+--       vim.api.nvim_set_hl(0, 'CursorLineBg', {
+--           fg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
+--           bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
+--         })
+--       vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
+--     end,
+--   })
 
 -- Commenting support.
 use('tpope/vim-commentary')
@@ -150,7 +164,6 @@ use({
 -- Fuzzy finder
 use({
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.1',
     requires = {
       'nvim-lua/plenary.nvim',
       'kyazdani42/nvim-web-devicons',
@@ -165,7 +178,6 @@ use({
 -- File tree sidebar
 use({
     'kyazdani42/nvim-tree.lua',
-    tag = 'compat-nvim-0.7',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('user/plugins/nvim-tree')
