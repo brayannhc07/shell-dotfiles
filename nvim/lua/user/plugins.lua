@@ -248,12 +248,12 @@ use({
 --   })
 
 -- Display indentation lines.
--- use({
---     'lukas-reineke/indent-blankline.nvim',
---     config = function()
---       require('user/plugins/indent-blankline')
---     end,
---   })
+use({
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+      require('user/plugins/indent-blankline')
+    end,
+  })
 
 -- Add a dashboard
 use {
