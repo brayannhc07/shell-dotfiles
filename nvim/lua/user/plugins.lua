@@ -41,17 +41,17 @@ use('wbthomason/packer.nvim')
 -- }
 
 -- Ayu theme.
-use({
-    'Shatur/neovim-ayu',
-    config = function()
-      require('ayu').setup({
-          mirage = true,
-          terminal = true,
-          overrides = {},
-        })
-      vim.cmd('colorscheme ayu-mirage')
-    end
-  })
+-- use({
+--     'Shatur/neovim-ayu',
+--     config = function()
+--       require('ayu').setup({
+--           mirage = true,
+--           terminal = true,
+--           overrides = {},
+--         })
+--       vim.cmd('colorscheme ayu-mirage')
+--     end
+--   })
 
 -- One Dark theme.
 -- use({
@@ -78,6 +78,39 @@ use({
 --       vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
 --     end,
 --   })
+
+-- Onedark pro theme.
+use({
+  'olimorris/onedarkpro.nvim',
+  config = function()
+    require('onedarkpro').setup({
+        highlights = {
+          Comment = { italic = true },
+          Directory = { bold = true },
+          ErrorMsg = { italic = true, bold = true },
+        },
+        styles = {
+          types = 'NONE',
+          methods = "bold",
+          numbers = "NONE",
+          strings = "NONE",
+          comments = "italic",
+          keywords = "bold,italic",
+          constants = "NONE",
+          functions = "italic",
+          operators = "NONE",
+          variables = "NONE",
+          parameters = "NONE",
+          conditionals = "italic",
+          virtual_text = "NONE",
+        },
+        options = {
+          transparency = true,
+        }
+      })
+    vim.cmd('colorscheme onedark')
+  end,
+})
 
 -- Commenting support.
 use('tpope/vim-commentary')
