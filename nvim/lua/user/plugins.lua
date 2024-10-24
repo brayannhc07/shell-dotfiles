@@ -41,39 +41,43 @@ use('wbthomason/packer.nvim')
 -- }
 
 -- Ayu theme.
--- use({
---     'ayu-theme/ayu-vim',
---     config = function()
---       vim.cmd('let ayucolor="mirage"')
---       vim.cmd('colorscheme ayu')
---     end
---   })
+use({
+    'Shatur/neovim-ayu',
+    config = function()
+      require('ayu').setup({
+          mirage = true,
+          terminal = true,
+          overrides = {},
+        })
+      vim.cmd('colorscheme ayu-mirage')
+    end
+  })
 
 -- One Dark theme.
-use({
-    'jessarcher/onedark.nvim',
-    config = function()
-      vim.cmd('colorscheme onedark')
+-- use({
+--     'joshdick/onedark.nvim',
+--     config = function()
+--       vim.cmd('colorscheme onedark')
 
-      vim.api.nvim_set_hl(0, 'FloatBorder', {
-          fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
-          bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
-        })
+--       vim.api.nvim_set_hl(0, 'FloatBorder', {
+--           fg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
+--           bg = vim.api.nvim_get_hl_by_name('NormalFloat', true).background,
+--         })
 
-      vim.api.nvim_set_hl(0, 'CursorLineBg', {
-          fg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
-          bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
-        })
-      vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
+--       vim.api.nvim_set_hl(0, 'CursorLineBg', {
+--           fg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
+--           bg = vim.api.nvim_get_hl_by_name('CursorLine', true).background,
+--         })
+--       vim.api.nvim_set_hl(0, 'NvimTreeIndentMarker', { fg = '#30323E' })
 
-      vim.api.nvim_set_hl(0, 'StatusLineNonText', {
-          fg = vim.api.nvim_get_hl_by_name('NonText', true).foreground,
-          bg = vim.api.nvim_get_hl_by_name('StatusLine', true).background,
-        })
+--       vim.api.nvim_set_hl(0, 'StatusLineNonText', {
+--           fg = vim.api.nvim_get_hl_by_name('NonText', true).foreground,
+--           bg = vim.api.nvim_get_hl_by_name('StatusLine', true).background,
+--         })
 
-      vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
-    end,
-  })
+--       vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#2F313C' })
+--     end,
+--   })
 
 -- Commenting support.
 use('tpope/vim-commentary')
