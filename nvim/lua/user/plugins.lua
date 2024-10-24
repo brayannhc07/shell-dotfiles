@@ -286,6 +286,17 @@ use({
     requires = 'tpope/vim-rhubarb',
   })
 
+-- Floating terminal
+use({
+    'voldikss/vim-floaterm',
+    config = function()
+      vim.g.floaterm_width = 0.8
+      vim.g.floaterm_height = 0.8
+      vim.keymap.set('n', '<F1>', ':FloatermToggle<CR>')
+      vim.keymap.set('t', '<F1>', '<C-\\><C-n>:FloatermToggle<CR>')
+    end,
+  })
+
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then
