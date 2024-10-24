@@ -276,7 +276,6 @@ use({
       vim.keymap.set('n', 'gS', ':Gitsigns undo_stage_hunk<CR>')
       vim.keymap.set('n', 'gp', ':Gitsigns preview_hunk<CR>')
       vim.keymap.set('n', 'gb', ':Gitsigns blame_line<CR>')
-      vim.keymap.set('n', 'gr', ':Gitsigns reset_hunk<CR>')
     end,
   })
 
@@ -309,6 +308,18 @@ use({
     },
     config = function()
       require('user.plugins.treesitter')
+    end,
+  })
+
+-- Language Server Protocol.
+use({
+    'neovim/nvim-lspconfig',
+    requires = {
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+    },
+    config = function()
+      require('user/plugins/lspconfig')
     end,
   })
 
