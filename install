@@ -18,3 +18,6 @@ ln -s $DOTFILES/nvim $HOME/.config/nvim
 
 rm -rf $(brew --prefix oh-my-posh)/themes/bryan-2.omp.json
 ln -s $DOTFILES/bash/bryan-2.omp.json $(brew --prefix oh-my-posh)/themes/bryan-2.omp.json
+
+rm -rf $HOME/.config/phpactor
+ln -s $DOTFILES/phpactor $HOME/.config/phpactor
