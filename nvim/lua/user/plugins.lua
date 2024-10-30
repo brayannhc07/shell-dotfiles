@@ -377,6 +377,19 @@ use({
       require('user/plugins/vim-test')
     end,
   })
+
+-- Github Copilot.
+use({
+    'github/copilot.vim',
+    config = function()
+      vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
+        expr = true,
+        replace_keycodes = false
+      })
+      vim.g.copilot_no_tab_map = true
+    end,
+  })
+
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then
