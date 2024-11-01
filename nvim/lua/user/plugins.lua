@@ -27,24 +27,24 @@ local use = require('packer').use
 use('wbthomason/packer.nvim')
 
 -- Monokai Pro theme.
--- use {
---   "loctvl842/monokai-pro.nvim",
---   config = function()
---     require("monokai-pro").setup({
---       transparent_background = true,
---       terminal_colors = true,
---       devicons = true,
---       filter = "spectrum",
---       plugins = {
---         indent_blankline = {
---           context_highlight = "default",
---           context_start_underline = false,
---         },
---       },
---     })
---     vim.cmd('colorscheme monokai-pro')
---   end
--- }
+use {
+  "loctvl842/monokai-pro.nvim",
+  config = function()
+    require("monokai-pro").setup({
+      transparent_background = true,
+      terminal_colors = true,
+      devicons = true,
+      filter = "pro",
+      plugins = {
+        indent_blankline = {
+          context_highlight = "default",
+          context_start_underline = false,
+        },
+      },
+    })
+    vim.cmd('colorscheme monokai-pro')
+  end
+}
 
 -- Ayu theme.
 -- use({
@@ -114,7 +114,7 @@ use({
           transparency = true,
         }
       })
-    vim.cmd('colorscheme onedark')
+    -- vim.cmd('colorscheme onedark')
   end,
 })
 
