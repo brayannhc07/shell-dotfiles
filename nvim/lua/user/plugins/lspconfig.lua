@@ -5,7 +5,10 @@ require('mason-lspconfig').setup({ automatic_installation = true })
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- PHP
-require('lspconfig').intelephense.setup({ capabilities = capabilities })
+require('lspconfig').intelephense.setup({
+  capabilities = capabilities,
+  filetypes = { 'php', 'blade' },
+})
 
 -- Vue, JavaScript, TypeScript
 require('lspconfig').volar.setup({
@@ -73,3 +76,31 @@ vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSi
 vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
 vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
 vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = "*.blade.php",
+    callback = function()
+        -- Ensure the LSP is properly loaded before accessing its methods
+        local lspconfig = require 'lspconfig'
+        
+        -- Only change the filetype if it's not already set to PHP
+        if vim.bo.filetype ~= "php" then
+            vim.bo.filetype = "php"
+
+            -- Check for active LSP clients for the current buffer
+            local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+            if #clients == 0 then
+                -- Try to attach Intelephense
+                local success, err = pcall(function()
+                    lspconfig.intelephense.manager.try_add()
+                end)
+
+                -- Handle any errors during the attachment
+                if not success then
+                    print("LSP Error: " .. err)  -- Print the error message if there's an issue
+                end
+            end
+        end
+    end,
+})
+
