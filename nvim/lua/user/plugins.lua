@@ -86,37 +86,37 @@ use {
 --   })
 
 -- Onedark pro theme.
-use({
-  'olimorris/onedarkpro.nvim',
-  config = function()
-    require('onedarkpro').setup({
-        highlights = {
-          Comment = { italic = true },
-          Directory = { bold = true },
-          ErrorMsg = { italic = true, bold = true },
-        },
-        styles = {
-          types = 'NONE',
-          methods = "bold",
-          numbers = "NONE",
-          strings = "NONE",
-          comments = "italic",
-          keywords = "bold,italic",
-          constants = "NONE",
-          functions = "italic",
-          operators = "NONE",
-          variables = "NONE",
-          parameters = "NONE",
-          conditionals = "italic",
-          virtual_text = "NONE",
-        },
-        options = {
-          transparency = true,
-        }
-      })
-    -- vim.cmd('colorscheme onedark')
-  end,
-})
+-- use({
+--   'olimorris/onedarkpro.nvim',
+--   config = function()
+--     require('onedarkpro').setup({
+--         highlights = {
+--           Comment = { italic = true },
+--           Directory = { bold = true },
+--           ErrorMsg = { italic = true, bold = true },
+--         },
+--         styles = {
+--           types = 'NONE',
+--           methods = "bold",
+--           numbers = "NONE",
+--           strings = "NONE",
+--           comments = "italic",
+--           keywords = "bold,italic",
+--           constants = "NONE",
+--           functions = "italic",
+--           operators = "NONE",
+--           variables = "NONE",
+--           parameters = "NONE",
+--           conditionals = "italic",
+--           virtual_text = "NONE",
+--         },
+--         options = {
+--           transparency = true,
+--         }
+--       })
+--     vim.cmd('colorscheme onedark')
+--   end,
+-- })
 
 -- Commenting support.
 use('tpope/vim-commentary')
@@ -256,7 +256,7 @@ use({
 -- Display indentation lines.
 use({
     'lukas-reineke/indent-blankline.nvim',
-    -- after = 'monokai-pro.nvim',
+    after = 'monokai-pro.nvim',
     config = function()
       require('user/plugins/indent-blankline')
     end,
