@@ -27,35 +27,35 @@ local use = require('packer').use
 use('wbthomason/packer.nvim')
 
 -- Monokai Pro theme.
-use {
-  "loctvl842/monokai-pro.nvim",
-  config = function()
-    require("monokai-pro").setup({
-      transparent_background = true,
-      terminal_colors = true,
-      devicons = true,
-      filter = "pro",
-      plugins = {
-        indent_blankline = {
-          context_highlight = "default",
-          context_start_underline = false,
-        },
-      },
-      overridePalette = function(filter)
-        return {
-          accent1 = "#F97BB0",
-          accent2 = "#82E6FF",
-          accent3 = "#D7C781",
-          accent4 = "#75C2B3",
-          accent5 = "#5AD4E6",
-          accent6 = "#948AE3",
-          white = "#F7F1FF",
-        }
-      end
-    })
-    vim.cmd('colorscheme monokai-pro')
-  end
-}
+-- use {
+--   "loctvl842/monokai-pro.nvim",
+--   config = function()
+--     require("monokai-pro").setup({
+--       transparent_background = true,
+--       terminal_colors = true,
+--       devicons = true,
+--       filter = "pro",
+--       plugins = {
+--         indent_blankline = {
+--           context_highlight = "default",
+--           context_start_underline = false,
+--         },
+--       },
+--       overridePalette = function(filter)
+--         return {
+--           accent1 = "#F97BB0",
+--           accent2 = "#82E6FF",
+--           accent3 = "#D7C781",
+--           accent4 = "#75C2B3",
+--           accent5 = "#5AD4E6",
+--           accent6 = "#948AE3",
+--           white = "#F7F1FF",
+--         }
+--       end
+--     })
+--     vim.cmd('colorscheme monokai-pro')
+--   end
+-- }
 
 -- Ayu theme.
 -- use({
@@ -128,6 +128,21 @@ use {
 --     vim.cmd('colorscheme onedark')
 --   end,
 -- })
+
+-- Tokyo Night
+use({
+    'folke/tokyonight.nvim',
+    config = function()
+      require('tokyonight').setup({
+          style = 'night',
+          transparent = true,
+          italics = true,
+          comments = true,
+          darkSidebar = true,
+        })
+      vim.cmd('colorscheme tokyonight')
+    end,
+  })
 
 -- Commenting support.
 use('tpope/vim-commentary')
@@ -267,7 +282,6 @@ use({
 -- Display indentation lines.
 use({
     'lukas-reineke/indent-blankline.nvim',
-    after = 'monokai-pro.nvim',
     config = function()
       require('user/plugins/indent-blankline')
     end,
