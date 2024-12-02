@@ -57,7 +57,7 @@ return {
             }
         }
     },
-    config = function()
+    config = function(plug, config)
         local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
         parser_config.blade = {
             install_info = {
@@ -73,5 +73,7 @@ return {
                 ['.*%.blade%.php'] = 'blade',
             },
         })
+
+        require(plug.main).setup(config);
     end,
 }
