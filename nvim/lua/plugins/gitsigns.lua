@@ -9,6 +9,6 @@ return {
         vim.keymap.set('n', 'ga', ':Gitsigns stage_hunk<CR>')
         vim.keymap.set('n', 'gA', ':Gitsigns undo_stage_hunk<CR>')
         vim.keymap.set('n', 'gp', ':Gitsigns preview_hunk<CR>')
-        vim.keymap.set('n', 'gb', ':Gitsigns blame_line<CR>')
+        vim.keymap.set('n', 'gB', ':Gitsigns blame_line<CR>')
     end,
 }
