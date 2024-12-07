@@ -34,6 +34,7 @@ return {
             "regex",
             "vim",
             "yaml",
+            "python",
         },
         highlight = {
             enable = true,

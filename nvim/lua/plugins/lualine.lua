@@ -12,13 +12,7 @@ return {
                 section_separators = '',
                 component_separators = '',
                 globalstatus = true,
-                theme = {
-                    normal = {
-                        a = 'StatusLine',
-                        b = 'StatusLine',
-                        c = 'StatusLine',
-                    },
-                },
+                theme = 'tokyonight',
             },
             sections = {
                 lualine_a = {
