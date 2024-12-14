@@ -15,6 +15,12 @@ return {
 
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+        -- Angular 
+        require'lspconfig'.angularls.setup{}
+        
+        -- CSharp
+        require'lspconfig'.csharp_ls.setup{}
+
         -- Python
         require('lspconfig').pyright.setup({
             capabilities = capabilities,

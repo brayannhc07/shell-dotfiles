@@ -13,6 +13,7 @@ return {
             "bash",
             "blade",
             "css",
+            "c_sharp",
             "go",
             "gomod",
             "html",
