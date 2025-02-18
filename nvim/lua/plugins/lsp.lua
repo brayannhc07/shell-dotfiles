@@ -19,7 +19,14 @@ return {
         require'lspconfig'.angularls.setup{}
         
         -- CSharp
-        require'lspconfig'.csharp_ls.setup{}
+        require'lspconfig'.omnisharp.setup{
+            cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+            enable_editorconfig_support = true,
+            enable_roslyn_analyzers = true,
+            organize_imports_on_format = true,
+            enable_import_completion = true,
+            capabilities = capabilities,
+        }
 
         -- Python
         require('lspconfig').pyright.setup({
