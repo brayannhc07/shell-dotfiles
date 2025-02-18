@@ -108,13 +108,15 @@ return {
         vim.keymap.set('n', 'gr', ':Telescope lsp_references<CR>')
         vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
         vim.keymap.set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = "Code Action" })
+        vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { desc = "Format" })
 
         -- Commands
         vim.api.nvim_create_user_command('Format', 'lua vim.lsp.buf.format()', {})
 
         -- Diagnostic configuration
         vim.diagnostic.config({
-            virtual_text = false,
+            virtual_text = true,
             float = {
                 source = true,
             }
