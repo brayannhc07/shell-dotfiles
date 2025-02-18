@@ -62,10 +62,50 @@ return {
 
         require('telescope').load_extension('fzf')
         require('telescope').load_extension('live_grep_args')
+        local function get_visual_selection()
+            local saved_reg = vim.fn.getreg('"')
+            vim.cmd('normal! ""y')
+            local selection = vim.fn.getreg('"')
+            vim.fn.setreg('"', saved_reg)
+            return selection
+        end
 
-        vim.keymap.set('n', '<leader>f', [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
-        vim.keymap.set('n', '<leader>F', [[<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' })<CR>]])
-        vim.keymap.set('n', '<leader>G', [[<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>]])
+        local function find_files_with_telescope()
+            if vim.fn.mode() == "v" then
+                -- If in Visual mode, get the selection and grep it
+                local selection = get_visual_selection()
+                require('telescope.builtin').find_files({ default_text = selection })
+            else
+                -- If in Normal mode, open find_files
+                require('telescope.builtin').find_files()
+            end
+        end
+
+        local function find_all_files_with_telescope()
+            if vim.fn.mode() == "v" then
+                -- If in Visual mode, get the selection and grep it
+                local selection = get_visual_selection()
+                require('telescope.builtin').find_files({ default_text = selection, no_ignore = true, prompt_title = 'All Files' })
+            else
+                -- If in Normal mode, open find_files
+                require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' })
+            end
+        end
+
+        local function live_grep_with_telescope()
+            if vim.fn.mode() == "v" then
+                -- If in Visual mode, get the selection and grep it
+                local selection = get_visual_selection()
+                require('telescope.builtin').live_grep({ default_text = selection })
+            else
+                -- If in Normal mode, open find_files
+                require('telescope.builtin').live_grep()
+            end
+        end
+        -- vim.keymap.set('n', '<leader>f', [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
+        vim.keymap.set({ "n", "v" }, "<leader>f", find_files_with_telescope, { noremap = true, silent = true })
+        vim.keymap.set({ 'n', 'v' }, '<leader>F', find_all_files_with_telescope, { noremap = true, silent = true })
+        vim.keymap.set({ 'n', 'v' }, '<leader>G', live_grep_with_telescope, { noremap = true, silent = true })
         vim.keymap.set('n', '<leader>b', [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
         vim.keymap.set('n', '<leader>gs', [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
         vim.keymap.set('n', '<leader>gc', [[<cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
