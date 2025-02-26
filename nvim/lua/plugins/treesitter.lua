@@ -34,12 +34,13 @@ return {
             "typescript",
             "regex",
             "vim",
+            "vue",
             "yaml",
             "python",
         },
         highlight = {
             enable = true,
-            additional_vim_regex_highlighting = { "org" },
+            additional_vim_regex_highlighting = false,
         },
         indent = {
             enable = true,

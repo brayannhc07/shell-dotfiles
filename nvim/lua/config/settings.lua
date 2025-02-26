@@ -41,3 +41,4 @@ vim.opt.undofile = true
 -- vim.opt.backup = true
 -- vim.opt.backupdir:remove('')
 vim.opt.colorcolumn = '100,120'
+vim.opt.synmaxcol = 500
