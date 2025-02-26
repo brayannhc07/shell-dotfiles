@@ -6,6 +6,7 @@ return {
         'williamboman/mason-lspconfig.nvim',
         'b0o/schemastore.nvim',
         'jose-elias-alvarez/null-ls.nvim',
+        'jose-elias-alvarez/typescript.nvim',
         'jayp0521/mason-null-ls.nvim',
     },
     config = function()
@@ -15,9 +16,12 @@ return {
 
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-        -- Angular 
-        require'lspconfig'.angularls.setup{}
-        
+        -- Angular
+        require'lspconfig'.angularls.setup{
+            capabilities = capabilities,
+            filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
+        }
+
         -- CSharp
         require'lspconfig'.omnisharp.setup{
             cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
@@ -50,12 +54,12 @@ return {
                     }
                 }
             },
-            filetypes = { 
-                "javascript", 
-                "javascriptreact", 
-                "javascript.jsx", 
-                "typescript", 
-                "typescriptreact", 
+            filetypes = {
+                "javascript",
+                "javascriptreact",
+                "javascript.jsx",
+                "typescript",
+                "typescriptreact",
                 "typescript.tsx",
                 "vue"
             },
@@ -85,7 +89,7 @@ return {
             sources = {
                 require('null-ls').builtins.diagnostics.eslint_d.with({
                     condition = function(utils)
-                        return utils.root_has_file({ '.eslintrc.js' })
+                        return utils.root_has_file({ '.eslintrc.js', '.eslintrc.json' })
                     end,
                 }),
                 require('null-ls').builtins.diagnostics.trail_space.with({ disabled_filetypes = { 'NvimTree' } }),
@@ -96,6 +100,10 @@ return {
                 }),
                 require('null-ls').builtins.formatting.prettierd,
             },
+        })
+        require('lspconfig').emmet_ls.setup({
+            capabilities = capabilities,
+            filetypes = { 'html', 'css', 'javascriptreact', 'typescriptreact', 'vue', 'svelte', 'angular' },
         })
         require('mason-null-ls').setup({ automatic_installation = true })
 
