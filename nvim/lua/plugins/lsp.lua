@@ -98,7 +98,9 @@ return {
                         return utils.root_has_file({ '.eslintrc.js' })
                     end,
                 }),
-                require('null-ls').builtins.formatting.prettierd,
+                require('null-ls').builtins.formatting.prettier.with({
+                    extra_args = { "--tab-width", "4", "--use-tabs", "false", "--html-whitespace-sensitivity", "ignore" }
+                }),
             },
         })
         require('lspconfig').emmet_ls.setup({
