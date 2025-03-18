@@ -46,16 +46,13 @@ return {
                     hidden = true,
                 },
                 buffers = {
-                    previewer = false,
-                    layout_config = {
-                        width = 80,
-                    },
+                    previewer = true,
                 },
                 oldfiles = {
                     prompt_title = 'History',
                 },
                 lsp_references = {
-                    previewer = false,
+                    previewer = true,
                 },
             },
         })

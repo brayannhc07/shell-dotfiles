@@ -18,7 +18,10 @@ return {
                 },
                 indent_markers = {
                     enable = true,
-                }
+                },
+            },
+            view = {
+                width = 60,
             },
         })
 
