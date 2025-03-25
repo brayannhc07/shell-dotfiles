@@ -1,11 +1,11 @@
 return {
-    "folke/tokyonight.nvim",
+    "loctvl842/monokai-pro.nvim",
     lazy = false,
     priority = 1000,
     opts = {
         transparent = true,
     },
     init = function()
-        vim.cmd[[colorscheme tokyonight]]
+        vim.cmd[[colorscheme monokai-pro-spectrum]]
     end,
 }
