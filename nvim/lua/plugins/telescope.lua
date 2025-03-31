@@ -109,5 +109,6 @@ return {
         vim.keymap.set('n', '<leader>gb', [[<cmd>lua require('telescope.builtin').git_branches()<CR>]])
         vim.keymap.set('n', '<leader>h', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
         vim.keymap.set('n', '<leader>s', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
+        vim.keymap.set('n', '<leader>tr', [[<cmd>lua require('telescope.builtin').resume()<CR>]])
     end,
 }

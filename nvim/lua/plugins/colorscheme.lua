@@ -3,7 +3,7 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-        transparent = true,
+        transparent_background = true,
     },
     init = function()
         vim.cmd[[colorscheme monokai-pro-spectrum]]

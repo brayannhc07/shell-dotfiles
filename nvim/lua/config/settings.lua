@@ -1,8 +1,13 @@
+vim.scriptencoding = 'utf-8'
+vim.opt.encoding = 'utf-8'
+vim.opt.fileencoding = 'utf-8'
+
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 
+vim.opt.autoindent = true
 vim.opt.smartindent = true
 
 vim.opt.wrap = false
@@ -42,3 +47,5 @@ vim.opt.undofile = true
 -- vim.opt.backupdir:remove('')
 vim.opt.colorcolumn = '100,120'
 vim.opt.synmaxcol = 500
+
+vim.opt.wildignore:append({"*/node_modules/*"})
