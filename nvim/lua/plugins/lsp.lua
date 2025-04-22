@@ -17,10 +17,14 @@ return {
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
         -- Angular
-        require'lspconfig'.angularls.setup{
+        require('lspconfig').angularls.setup({
             capabilities = capabilities,
             filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
-        }
+            on_attach = function(client, bufnr)
+                client.server_capabilities.documentFormattingProvider = false
+                client.server_capabilities.documentRangeFormattingProvider = false
+            end,
+        })
 
         -- CSharp
         require'lspconfig'.omnisharp.setup{
@@ -99,7 +103,7 @@ return {
                     end,
                 }),
                 require('null-ls').builtins.formatting.prettier.with({
-                    extra_args = { "--tab-width", "4", "--use-tabs", "false", "--html-whitespace-sensitivity", "ignore" }
+                    extra_args = { "--use-tabs", "false", "--html-whitespace-sensitivity", "ignore" }
                 }),
             },
         })
