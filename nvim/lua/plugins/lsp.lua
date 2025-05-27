@@ -5,9 +5,7 @@ return {
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
         'b0o/schemastore.nvim',
-        'jose-elias-alvarez/null-ls.nvim',
         'jose-elias-alvarez/typescript.nvim',
-        'jayp0521/mason-null-ls.nvim',
     },
     config = function()
         -- Setup Mason to automatically install LSP servers
@@ -15,9 +13,10 @@ return {
         require('mason-lspconfig').setup({ automatic_installation = true })
 
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        local lspconfig = require('lspconfig');
 
         -- Angular
-        require('lspconfig').angularls.setup({
+        lspconfig.angularls.setup({
             capabilities = capabilities,
             filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
             on_attach = function(client, bufnr)
@@ -27,7 +26,7 @@ return {
         })
 
         -- CSharp
-        require'lspconfig'.omnisharp.setup{
+        lspconfig.omnisharp.setup{
             cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
             enable_editorconfig_support = true,
             enable_roslyn_analyzers = true,
@@ -42,12 +41,13 @@ return {
         })
 
         -- PHP
-        require('lspconfig').intelephense.setup({
+        lspconfig.intelephense.setup({
             capabilities = capabilities,
             filetypes = { 'php', 'blade' },
         })
 
-        require('lspconfig').ts_ls.setup({
+        -- Typescript
+        lspconfig.ts_ls.setup({
             capabilities = capabilities,
             init_options = {
                 plugins = {
@@ -70,16 +70,11 @@ return {
             cmd = { 'typescript-language-server', '--stdio' }
         })
 
-        -- Vue, JavaScript, TypeScript
-        require('lspconfig').volar.setup({
-            capabilities = capabilities,
-            filetypes = { 'vue' },
-        })
         -- Tailwind CSS
-        require('lspconfig').tailwindcss.setup({ capabilities = capabilities })
+        lspconfig.tailwindcss.setup({ capabilities = capabilities })
 
         -- JSON
-        require('lspconfig').jsonls.setup({
+        lspconfig.jsonls.setup({
             capabilities = capabilities,
             settings = {
                 json = {
@@ -88,30 +83,10 @@ return {
             },
         })
 
-        -- null-ls
-        require('null-ls').setup({
-            sources = {
-                require('null-ls').builtins.diagnostics.eslint_d.with({
-                    condition = function(utils)
-                        return utils.root_has_file({ '.eslintrc.js', '.eslintrc.json' })
-                    end,
-                }),
-                require('null-ls').builtins.diagnostics.trail_space.with({ disabled_filetypes = { 'NvimTree' } }),
-                require('null-ls').builtins.formatting.eslint_d.with({
-                    condition = function(utils)
-                        return utils.root_has_file({ '.eslintrc.js' })
-                    end,
-                }),
-                require('null-ls').builtins.formatting.prettier.with({
-                    extra_args = { "--use-tabs", "false", "--html-whitespace-sensitivity", "ignore" }
-                }),
-            },
-        })
-        require('lspconfig').emmet_ls.setup({
+        lspconfig.emmet_ls.setup({
             capabilities = capabilities,
             filetypes = { 'html', 'css', 'javascriptreact', 'typescriptreact', 'vue', 'svelte', 'angular' },
         })
-        require('mason-null-ls').setup({ automatic_installation = true })
 
         -- Keymaps
         vim.keymap.set('n', '<Leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>')
