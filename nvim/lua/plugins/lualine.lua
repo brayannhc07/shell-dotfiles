@@ -22,9 +22,17 @@ return {
                     'branch',
                     'diff',
                     separator,
-                    '"🖧  " .. tostring(#vim.tbl_keys(vim.lsp.buf_get_clients()))',
+                    '"🖧  " .. tostring(#vim.tbl_keys(vim.lsp.get_clients()))',
                     { 'diagnostics', sources = { 'nvim_diagnostic' } },
                     separator,
+                    function()
+                        local ok, status = pcall(vim.api.nvim_call_function, "codeium#GetStatusString", {})
+                        if ok then
+                            return " " .. status
+                        else
+                            return " N/A"
+                        end
+                    end,
                 },
                 lualine_c = {
                     'filename'
