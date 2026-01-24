@@ -39,11 +39,11 @@ return {
                 lua = { 'stylua' },
             },
 
-            -- Format on save
-            format_on_save = {
-                timeout_ms = 500,
-                lsp_fallback = true,
-            },
+            -- Format on save (disabled - use <leader>cf to format manually)
+            -- format_on_save = {
+            --     timeout_ms = 500,
+            --     lsp_fallback = true,
+            -- },
 
             -- Customize formatters
             formatters = {
