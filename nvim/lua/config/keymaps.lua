@@ -37,3 +37,20 @@ vim.keymap.set('n', '<A-j>', ':move .+1<CR>==')
 vim.keymap.set('n', '<A-k>', ':move .-2<CR>==')
 vim.keymap.set('v', '<A-j>', ":move '>+1<CR>gv=gv")
 vim.keymap.set('v', '<A-k>', ":move '<-2<CR>gv=gv")
+
+-- Copy file path with line numbers for Claude Code (@path/to/file:line or @path/to/file:start-end).
+vim.keymap.set('v', '<Leader>cc', function()
+  local start_line = vim.fn.line("'<")
+  local end_line = vim.fn.line("'>")
+  local file_path = vim.fn.expand('%')
+
+  local reference
+  if start_line == end_line then
+    reference = '@' .. file_path .. ':' .. start_line
+  else
+    reference = '@' .. file_path .. ':' .. start_line .. '-' .. end_line
+  end
+
+  vim.fn.setreg('+', reference)
+  print('Copied: ' .. reference)
+end, { desc = 'Copy file path with line numbers for Claude' })

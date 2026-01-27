@@ -28,6 +28,7 @@
 | Key | Mode | Action |
 |-----|------|--------|
 | `<Leader>k` | Normal | Clear search highlighting |
+| `<Leader>cc` | Visual | Copy file path with line numbers for Claude (`@file:line` or `@file:start-end`) |
 | `q:` | Normal | Disabled (remapped to `:q`) |
 
 ---
