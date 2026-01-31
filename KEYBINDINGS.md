@@ -174,6 +174,7 @@
 | `<Leader>ul` | Normal | Toggle line numbers |
 | `<Leader>ud` | Normal | Toggle diagnostics |
 | `<Leader>uT` | Normal | Toggle Treesitter |
+| `<Leader>ut` | Normal | Toggle sticky context headers |
 | `<Leader>uh` | Normal | Toggle inlay hints |
 
 ---
@@ -240,6 +241,16 @@ Uses default vim-tmux-navigator bindings:
 
 ---
 
+## Code Context Navigation
+
+### Treesitter Context (Sticky Headers)
+| Key | Mode | Action |
+|-----|------|--------|
+| `[c` | Normal | Jump to context start (function/class beginning) |
+| `<Leader>ut` | Normal | Toggle sticky context headers |
+
+---
+
 ## Plugin-Provided Keybindings
 
 Some plugins provide default keybindings not explicitly configured:
@@ -269,7 +280,8 @@ Some plugins provide default keybindings not explicitly configured:
 - **Linting**: `nvim/lua/plugins/nvim-lint.lua`
 - **Telescope keymaps**: `nvim/lua/plugins/telescope.lua:103-112`
 - **Gitsigns keymaps**: `nvim/lua/plugins/gitsigns.lua:6-12`
-- **Git conflicts**: `nvim/lua/plugins/git-conflict.lua` (NEW)
+- **Git conflicts**: `nvim/lua/plugins/git-conflict.lua`
+- **Treesitter context**: `nvim/lua/plugins/treesitter-context.lua` (NEW)
 - **Snacks keymaps**: `nvim/lua/plugins/snacks.lua:27-33`
 - **Testing keymaps**: `nvim/lua/plugins/test.lua:5-9`
 - **File tree keymaps**: `nvim/lua/plugins/nvim-tree.lua:28`
