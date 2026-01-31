@@ -1,5 +1,9 @@
 return {
   'Exafunction/windsurf.vim',
+  dependencies = {
+     "nvim-lua/plenary.nvim",
+     "hrsh7th/nvim-cmp",
+   },
   event = 'BufEnter',
   config = function()
     vim.keymap.set('i', '<C-j>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })

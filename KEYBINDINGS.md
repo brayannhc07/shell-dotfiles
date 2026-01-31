@@ -119,6 +119,40 @@
 
 ---
 
+## Snacks.nvim (Utilities & Notifications)
+
+### Notifications
+| Key | Mode | Action |
+|-----|------|--------|
+| `<Leader>nh` | Normal | Show notification history |
+| `<Leader>un` | Normal | Dismiss all notifications |
+
+### Git Operations (Lazygit Integration)
+| Key | Mode | Action |
+|-----|------|--------|
+| `<Leader>gg` | Normal | Open Lazygit |
+| `<Leader>go` | Normal | Git browse (open file/repo in browser) |
+| `<Leader>gf` | Normal | Lazygit current file history |
+| `<Leader>gl` | Normal | Lazygit log |
+
+### Buffer Management
+| Key | Mode | Action |
+|-----|------|--------|
+| `<Leader>bd` | Normal | Delete buffer (smart delete) |
+
+### Toggles
+| Key | Mode | Action |
+|-----|------|--------|
+| `<Leader>us` | Normal | Toggle spelling |
+| `<Leader>uw` | Normal | Toggle wrap |
+| `<Leader>uL` | Normal | Toggle relative line numbers |
+| `<Leader>ul` | Normal | Toggle line numbers |
+| `<Leader>ud` | Normal | Toggle diagnostics |
+| `<Leader>uT` | Normal | Toggle Treesitter |
+| `<Leader>uh` | Normal | Toggle inlay hints |
+
+---
+
 ## Testing (vim-test)
 
 | Key | Mode | Action |
@@ -206,10 +240,11 @@ Some plugins provide default keybindings not explicitly configured:
 
 - **Core keymaps**: `nvim/lua/config/keymaps.lua`
 - **LSP keymaps**: `nvim/lua/plugins/lsp.lua:97-106`
-- **Formatting**: `nvim/lua/plugins/conform.lua` (NEW)
-- **Linting**: `nvim/lua/plugins/nvim-lint.lua` (NEW)
+- **Formatting**: `nvim/lua/plugins/conform.lua`
+- **Linting**: `nvim/lua/plugins/nvim-lint.lua`
 - **Telescope keymaps**: `nvim/lua/plugins/telescope.lua:103-112`
 - **Gitsigns keymaps**: `nvim/lua/plugins/gitsigns.lua:6-12`
+- **Snacks keymaps**: `nvim/lua/plugins/snacks.lua:27-33` (NEW)
 - **Testing keymaps**: `nvim/lua/plugins/test.lua:5-9`
 - **File tree keymaps**: `nvim/lua/plugins/nvim-tree.lua:28`
 - **Terminal keymaps**: `nvim/lua/plugins/floaterm.lua:7-8`
