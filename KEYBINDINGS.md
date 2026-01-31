@@ -119,6 +119,31 @@
 
 ---
 
+## Git Conflicts (git-conflict.nvim)
+
+### Conflict Resolution
+| Key | Mode | Action |
+|-----|------|--------|
+| `co` | Normal | Choose ours (current branch) |
+| `ct` | Normal | Choose theirs (incoming branch) |
+| `cb` | Normal | Choose both (keep both changes) |
+| `c0` | Normal | Choose none (delete both changes) |
+| `]x` | Normal | Next conflict |
+| `[x` | Normal | Previous conflict |
+
+### Commands
+| Command | Action |
+|---------|--------|
+| `:GitConflictChooseOurs` | Choose ours |
+| `:GitConflictChooseTheirs` | Choose theirs |
+| `:GitConflictChooseBoth` | Choose both |
+| `:GitConflictChooseNone` | Choose none |
+| `:GitConflictNextConflict` | Jump to next conflict |
+| `:GitConflictPrevConflict` | Jump to previous conflict |
+| `:GitConflictListQf` | List all conflicts in quickfix |
+
+---
+
 ## Snacks.nvim (Utilities & Notifications)
 
 ### Notifications
@@ -244,7 +269,8 @@ Some plugins provide default keybindings not explicitly configured:
 - **Linting**: `nvim/lua/plugins/nvim-lint.lua`
 - **Telescope keymaps**: `nvim/lua/plugins/telescope.lua:103-112`
 - **Gitsigns keymaps**: `nvim/lua/plugins/gitsigns.lua:6-12`
-- **Snacks keymaps**: `nvim/lua/plugins/snacks.lua:27-33` (NEW)
+- **Git conflicts**: `nvim/lua/plugins/git-conflict.lua` (NEW)
+- **Snacks keymaps**: `nvim/lua/plugins/snacks.lua:27-33`
 - **Testing keymaps**: `nvim/lua/plugins/test.lua:5-9`
 - **File tree keymaps**: `nvim/lua/plugins/nvim-tree.lua:28`
 - **Terminal keymaps**: `nvim/lua/plugins/floaterm.lua:7-8`
