@@ -4,6 +4,7 @@ return {
     dependencies = {
         'kyazdani42/nvim-web-devicons',
     },
+    event = 'VeryLazy',
     config = function()
         local separator = { '"▏"', color = 'StatusLineNonText' }
 

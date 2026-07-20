@@ -1,21 +1,12 @@
 -- Testing Helper.
 return {
     'vim-test/vim-test',
-    config = function()
-        vim.keymap.set('n', '<Leader>tn', ':TestNearest<CR>')
-        vim.keymap.set('n', '<Leader>tf', ':TestFile<CR>')
-        vim.keymap.set('n', '<Leader>ts', ':TestSuite<CR>')
-        vim.keymap.set('n', '<Leader>tl', ':TestLast<CR>')
-        vim.keymap.set('n', '<Leader>tv', ':TestVisit<CR>')
-
-        -- vim.cmd([[
-        --   function! FloatermStrategy(cmd)
-        --     execute 'silent FloatermKill'
-        --     execute 'FloatermNew! '.a:cmd.' |less -X'
-        --   endfunction
-
-        --   let g:test#custom_strategies = {'floaterm': function('FloatermStrategy')}
-            --   let g:test#strategy = 'floaterm'
-            -- ]])
-        end,
-    }
+    cmd = { 'TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit' },
+    keys = {
+        { '<Leader>tn', '<cmd>TestNearest<CR>', desc = 'Test Nearest' },
+        { '<Leader>tf', '<cmd>TestFile<CR>', desc = 'Test File' },
+        { '<Leader>ts', '<cmd>TestSuite<CR>', desc = 'Test Suite' },
+        { '<Leader>tl', '<cmd>TestLast<CR>', desc = 'Test Last' },
+        { '<Leader>tv', '<cmd>TestVisit<CR>', desc = 'Test Visit' },
+    },
+}

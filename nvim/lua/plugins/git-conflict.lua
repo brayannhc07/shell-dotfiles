@@ -2,6 +2,7 @@
 return {
   'akinsho/git-conflict.nvim',
   version = "*",
+  event = 'BufReadPost',
   config = function()
     require('git-conflict').setup({
       default_mappings = true, -- Enable default keybindings

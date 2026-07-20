@@ -18,11 +18,26 @@ require("lazy").setup({
     spec = {
         { import = "plugins" },
     },
-    default = {
+    defaults = {
       lazy = true,
+    },
+    install = {
+      colorscheme = { "monokai-pro" },
     },
     checker = { enabled = true, notify = false },
     ui = {
       border = "rounded",
+    },
+    performance = {
+      rtp = {
+        disabled_plugins = {
+          "gzip",
+          "tarPlugin",
+          "tohtml",
+          "tutor",
+          "zipPlugin",
+          "netrwPlugin",
+        },
+      },
     },
 })

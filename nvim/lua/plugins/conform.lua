@@ -23,10 +23,7 @@ return {
                 markdown = { 'prettier' },
 
                 -- Python
-                python = { 'black', 'isort' },
-
-                -- PHP/Laravel
-                php = { 'php_cs_fixer' },
+                python = { 'ruff_organize_imports', 'ruff_format' },
 
                 -- C#
                 cs = { 'csharpier' },
@@ -47,9 +44,6 @@ return {
 
             -- Customize formatters
             formatters = {
-                black = {
-                    prepend_args = { '--line-length', '88' },
-                },
                 prettier = {
                     prepend_args = { '--tab-width', '2', '--single-quote' },
                 },

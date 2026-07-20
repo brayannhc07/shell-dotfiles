@@ -15,7 +15,7 @@ return {
     zindex = 20, -- Z-index of the context window
     on_attach = function(buf)
       -- Disable for filetypes that cause parser errors with injected languages
-      local dominated_filetypes = { 'markdown', 'php', 'blade' }
+      local dominated_filetypes = { 'markdown' }
       return not vim.tbl_contains(dominated_filetypes, vim.bo[buf].filetype)
     end,
   },

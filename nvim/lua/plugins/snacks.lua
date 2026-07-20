@@ -23,13 +23,19 @@ return {
       },
     },
 
+    -- Indent guides (replaces indent-blankline)
+    indent = { enabled = true },
+
     -- Other useful features
-    bigfile = { enabled = true },
+    -- Treat files over 512KB as "big": disables treesitter/syntax/folds for
+    -- them so huge generated files open instantly (default threshold is 1.5MB)
+    bigfile = { enabled = true, size = 512 * 1024 },
     quickfile = { enabled = true },
     statuscolumn = { enabled = false }, -- Keep default statuscolumn
     words = { enabled = true },
   },
   keys = {
+    { "<F1>", function() Snacks.terminal.toggle() end, mode = { "n", "t" }, desc = "Toggle Terminal" },
     { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
     { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },

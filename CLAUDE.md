@@ -4,7 +4,7 @@
 
 **What**: Personal development environment configuration (dotfiles) for Neovim, Tmux, Kitty terminal, and shell prompt customization.
 
-**Why**: Provides a reproducible, version-controlled development setup optimized for polyglot web development (TypeScript/Vue/React, Python, C#, PHP/Laravel) with terminal-native workflows.
+**Why**: Provides a reproducible, version-controlled development setup optimized for polyglot web development (TypeScript/React/Next.js/NestJS, Python, C#) with terminal-native workflows.
 
 **Installation**: Run `./install` to create symlinks from this repository to system config locations (`~/.config/nvim`, `~/.tmux.conf`, etc.)
 
@@ -20,20 +20,23 @@
 - **Lazy.nvim** - Plugin manager with lazy loading
 
 ### Language Support (LSP Servers)
-- TypeScript/JavaScript (`ts_ls`) - See `nvim/lua/plugins/lsp.lua:45`
-- Python (`pyright`) - See `nvim/lua/plugins/lsp.lua:46`
-- C# (`omnisharp`) - See `nvim/lua/plugins/lsp.lua:47`
-- PHP (`intelephense`) - See `nvim/lua/plugins/lsp.lua:48`
-- Tailwind CSS, JSON, HTML (Emmet), Angular - See `nvim/lua/plugins/lsp.lua:49-52`
+- TypeScript/JavaScript (`vtsls`) - See `nvim/lua/plugins/lsp.lua`
+- Python (`pyright` for types/navigation + `ruff` for lint/format/imports) - See `nvim/lua/plugins/lsp.lua`
+- C# (`roslyn` via roslyn.nvim, Crashdummyy Mason registry) - See `nvim/lua/plugins/roslyn.lua`
+- Tailwind CSS, JSON (schemastore), HTML (Emmet) - See `nvim/lua/plugins/lsp.lua`
 
 ### Key Neovim Plugins
 - **Telescope** - Fuzzy finder for files/buffers/git/grep (`nvim/lua/plugins/telescope.lua`)
-- **Treesitter** - Advanced syntax highlighting (`nvim/lua/plugins/treesitter.lua`)
+- **Treesitter** - Advanced syntax highlighting, `master` branch (`nvim/lua/plugins/treesitter.lua`)
+- **blink.cmp** - Completion engine, v1.x + LuaSnip (`nvim/lua/plugins/blink.lua`)
+- **Snacks** - Dashboard, notifications, terminal (`<F1>`), indent guides, lazygit (`nvim/lua/plugins/snacks.lua`)
 - **Gitsigns** - Git integration with inline hunks (`nvim/lua/plugins/gitsigns.lua`)
 - **Fugitive** - Git command wrapper (`nvim/lua/plugins/fugitive.lua`)
-- **Codeium/Windsurf** - AI code completion (`nvim/lua/plugins/codeium.lua`)
-- **vim-test** - Test runner integration (`nvim/lua/plugins/vim-test.lua`)
-- **PHPActor** - PHP refactoring and IDE features
+- **Codeium/Windsurf** - AI inline completion (`nvim/lua/plugins/windsurf.lua`)
+- **vim-test** - Test runner integration (`nvim/lua/plugins/test.lua`)
+- **which-key** - Keybinding discovery popup (`nvim/lua/plugins/which-key.lua`)
+- **flash.nvim** - Jump motions via `s` + 2 chars (`nvim/lua/plugins/flash.lua`)
+- **trouble.nvim / todo-comments** - Diagnostics panel and TODO search
 
 ---
 
@@ -56,7 +59,7 @@ shell-dotfiles/
 │   │       ├── treesitter.lua # Syntax highlighting
 │   │       └── *.lua       # Additional plugin configs
 │   └── after/              # Post-initialization hooks
-│       └── queries/blade/  # Laravel Blade template support
+│       └── ftplugin/       # Per-filetype overrides (spell in markdown/gitcommit)
 │
 ├── tmux/                    # Terminal multiplexer
 │   └── tmux.conf           # VI-style keybindings, prefix: Ctrl-Space
@@ -70,7 +73,7 @@ shell-dotfiles/
 ├── scripts/                 # Utility scripts
 │   └── t                   # Fuzzy tmux session/project switcher
 │
-├── phpactor/                # PHP development tools
+├── phpactor/                # PHP development tools (legacy, unused by nvim config)
 │   ├── phpactor.yml        # IDE configuration
 │   └── templates/          # Code generation templates
 │
@@ -141,10 +144,10 @@ t
 **Leader key**: `<Space>` (configured in `nvim/lua/config/keymaps.lua:1`)
 
 ### File Navigation (Telescope)
-- `<leader>ff` - Find files
-- `<leader>G` - Live grep (search in files)
-- `<leader>fb` - Browse buffers
-- `<leader>fh` - Help tags
+- `<leader>f` - Find files (`<leader>F` includes ignored files)
+- `<leader>G` - Live grep (search in files, ripgrep args supported)
+- `<leader>b` - Browse buffers
+- `<leader>h` - Recent files (history)
 
 ### LSP Operations
 - `gd` - Go to definition
@@ -155,7 +158,7 @@ t
 - `<leader>rn` - Rename symbol
 - `[d` / `]d` - Navigate diagnostics
 
-See `nvim/lua/plugins/lsp.lua:67-75` for complete LSP keybindings.
+See the `LspAttach` autocmd in `nvim/lua/plugins/lsp.lua` for complete LSP keybindings.
 
 ### Git Operations
 - `<leader>gs` - Git status
@@ -188,9 +191,8 @@ When working on specific aspects of this codebase, consult:
 
 ### Adding a New LSP Server
 1. Edit `nvim/lua/plugins/lsp.lua`
-2. Add server to `servers` table (line 44-53)
-3. Configure server-specific options if needed
-4. Install via `:Mason` or let Mason auto-install
+2. Add server-specific options via `vim.lsp.config('<server>', { ... })` if needed
+3. Add the server name to mason-lspconfig's `ensure_installed` list (installs and auto-enables it)
 
 ### Modifying Vim Settings
 - **Core options**: Edit `nvim/lua/config/settings.lua`

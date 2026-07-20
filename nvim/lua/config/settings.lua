@@ -23,8 +23,6 @@ vim.opt.mouse = 'a'
 
 vim.opt.termguicolors = true
 
-vim.opt.spell = true
-
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
@@ -49,6 +47,19 @@ vim.opt.colorcolumn = '100,120'
 vim.opt.synmaxcol = 500
 
 vim.opt.wildignore:append({"*/node_modules/*"})
+
+vim.opt.updatetime = 200
+vim.opt.inccommand = 'nosplit'
+vim.opt.smoothscroll = true
+
+vim.opt.grepprg = 'rg --vimgrep'
+vim.opt.grepformat = '%f:%l:%c:%m'
+
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldtext = ''
 
 -- Disable treesitter for markdown (bundled parser in Neovim 0.12 causes errors)
 local disabled_langs = { markdown = true, markdown_inline = true }

@@ -1,10 +1,10 @@
 -- Improved syntax highlighting
 return {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'master', -- frozen branch; the main-branch rewrite is a future migration
     build = ":TSUpdate",
     dependencies = {
-        'JoosepAlviste/nvim-ts-context-commentstring',
-        'nvim-treesitter/nvim-treesitter-textobjects',
+        { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'master' },
     },
     event = "VeryLazy",
     main = "nvim-treesitter.configs",
@@ -18,14 +18,11 @@ return {
             "json",
             "lua",
             "luadoc",
-            "php",
-            "phpdoc",
             "query",
             "sql",
             "typescript",
             "regex",
             "vim",
-            "vue",
             "yaml",
             "python",
         },
@@ -52,23 +49,4 @@ return {
             }
         }
     },
-    config = function(plug, config)
-        local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-        parser_config.blade = {
-            install_info = {
-                url = "https://github.com/EmranMR/tree-sitter-blade",
-                files = {"src/parser.c"},
-                branch = "main",
-            },
-            filetype = "blade"
-        }
-
-        vim.filetype.add({
-            pattern = {
-                ['.*%.blade%.php'] = 'blade',
-            },
-        })
-
-        require(plug.main).setup(config);
-    end,
 }

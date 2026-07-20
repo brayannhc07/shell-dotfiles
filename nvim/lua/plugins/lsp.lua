@@ -1,108 +1,100 @@
--- Language Server Protocol (Neovim 0.11+ compatible)
+-- Language Server Protocol (native vim.lsp.config + mason-lspconfig v2)
 return {
     'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
         'b0o/schemastore.nvim',
     },
     config = function()
-        -- Setup Mason to automatically install LSP servers
-        require('mason').setup()
+        require('mason').setup({
+            registries = {
+                'github:mason-org/mason-registry',
+                -- Provides the 'roslyn' C# server package (see plugins/roslyn.lua)
+                'github:Crashdummyy/mason-registry',
+            },
+        })
 
-        -- Get capabilities for autocompletion
-        local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-        -- Configure individual servers with custom settings
-        local server_configs = {
-            -- C# / ASP.NET
-            omnisharp = {
-                cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-                capabilities = capabilities,
-                settings = {
-                    FormattingOptions = {
-                        EnableEditorConfigSupport = true,
-                        OrganizeImports = true,
-                    },
-                    RoslynExtensionsOptions = {
-                        EnableAnalyzersSupport = true,
-                        EnableImportCompletion = true,
+        -- TypeScript / JavaScript (Next.js, NestJS, serverless)
+        local ts_settings = {
+            complete_function_calls = true,
+            vtsls = {
+                enableMoveToFileCodeAction = true,
+                autoUseWorkspaceTsdk = true,
+                experimental = {
+                    maxInlayHintLength = 30,
+                    completion = {
+                        enableServerSideFuzzyMatch = true,
                     },
                 },
             },
-
-            -- Python
-            pyright = {
-                capabilities = capabilities,
-                on_attach = function(client)
-                    -- Disable formatting in favor of black (via conform.nvim)
-                    client.server_capabilities.documentFormattingProvider = false
-                    client.server_capabilities.documentRangeFormattingProvider = false
-                end,
-            },
-
-            -- PHP / Laravel
-            intelephense = {
-                capabilities = capabilities,
-                filetypes = { 'php', 'blade' },
-                on_attach = function(client)
-                    -- Disable formatting in favor of php-cs-fixer (via conform.nvim)
-                    client.server_capabilities.documentFormattingProvider = false
-                    client.server_capabilities.documentRangeFormattingProvider = false
-                end,
-            },
-
-            -- TypeScript / JavaScript / React (Next.js)
-            ts_ls = {
-                capabilities = capabilities,
-                filetypes = {
-                    "javascript",
-                    "javascriptreact",
-                    "javascript.jsx",
-                    "typescript",
-                    "typescriptreact",
-                    "typescript.tsx",
+            typescript = {
+                updateImportsOnFileMove = { enabled = 'always' },
+                suggest = { completeFunctionCalls = true },
+                inlayHints = {
+                    enumMemberValues = { enabled = true },
+                    functionLikeReturnTypes = { enabled = true },
+                    parameterNames = { enabled = 'literals' },
+                    parameterTypes = { enabled = true },
+                    propertyDeclarationTypes = { enabled = true },
+                    variableTypes = { enabled = false },
                 },
-                on_attach = function(client)
-                    -- Disable formatting in favor of prettier (via conform.nvim)
-                    client.server_capabilities.documentFormattingProvider = false
-                    client.server_capabilities.documentRangeFormattingProvider = false
-                end,
-            },
-
-            -- Tailwind CSS
-            tailwindcss = {
-                capabilities = capabilities,
-            },
-
-            -- JSON
-            jsonls = {
-                capabilities = capabilities,
-                settings = {
-                    json = {
-                        schemas = require('schemastore').json.schemas(),
-                        validate = { enable = true },
-                    },
-                },
-            },
-
-            -- Emmet (HTML/CSS abbreviations)
-            emmet_ls = {
-                capabilities = capabilities,
-                filetypes = { 'html', 'css', 'javascriptreact', 'typescriptreact' },
             },
         }
+        ts_settings.javascript = vim.deepcopy(ts_settings.typescript)
 
-        -- Setup mason-lspconfig with automatic server configuration
+        vim.lsp.config('vtsls', {
+            filetypes = {
+                'javascript',
+                'javascriptreact',
+                'javascript.jsx',
+                'typescript',
+                'typescriptreact',
+                'typescript.tsx',
+            },
+            settings = ts_settings,
+        })
+
+        -- Python: pyright for types/navigation, ruff for lint/format/imports
+        vim.lsp.config('pyright', {
+            settings = {
+                pyright = { disableOrganizeImports = true },
+            },
+        })
+
+        vim.lsp.config('ruff', {
+            init_options = { settings = { logLevel = 'error' } },
+            on_attach = function(client)
+                -- pyright owns hover
+                client.server_capabilities.hoverProvider = false
+            end,
+        })
+
+        -- JSON
+        vim.lsp.config('jsonls', {
+            settings = {
+                json = {
+                    schemas = require('schemastore').json.schemas(),
+                    validate = { enable = true },
+                },
+            },
+        })
+
+        -- Emmet (HTML/CSS abbreviations)
+        vim.lsp.config('emmet_ls', {
+            filetypes = { 'html', 'css', 'javascriptreact', 'typescriptreact' },
+        })
+
+        -- Install servers and auto-enable them (automatic_enable is the default)
         require('mason-lspconfig').setup({
-            ensure_installed = vim.tbl_keys(server_configs),
-            automatic_installation = true,
-            handlers = {
-                -- Default handler for all servers
-                function(server_name)
-                    local config = server_configs[server_name] or {}
-                    require('lspconfig')[server_name].setup(config)
-                end,
+            ensure_installed = {
+                'vtsls',
+                'pyright',
+                'ruff',
+                'tailwindcss',
+                'jsonls',
+                'emmet_ls',
             },
         })
 
@@ -132,7 +124,14 @@ return {
         -- Diagnostic configuration
         vim.diagnostic.config({
             virtual_text = true,
-            signs = true,
+            signs = {
+                text = {
+                    [vim.diagnostic.severity.ERROR] = '',
+                    [vim.diagnostic.severity.WARN] = '',
+                    [vim.diagnostic.severity.INFO] = '',
+                    [vim.diagnostic.severity.HINT] = '',
+                },
+            },
             underline = true,
             update_in_insert = false,
             severity_sort = true,
@@ -141,18 +140,5 @@ return {
                 border = 'rounded',
             },
         })
-
-        -- Sign configuration
-        local signs = {
-            Error = '',
-            Warn = '',
-            Info = '',
-            Hint = '',
-        }
-
-        for type, icon in pairs(signs) do
-            local hl = 'DiagnosticSign' .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-        end
     end,
 }

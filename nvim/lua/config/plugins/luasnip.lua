@@ -23,11 +23,8 @@ function M.setup()
     end
   end, { silent = true })
 
-  vim.keymap.set({ "i", "s" }, "<C-l>", function()
-    if ls.jumpable(-1) then
-      ls.jump(-1)
-    end
-  end, { silent = true })
+  -- Note: no <C-l> jump-back mapping — it clashes with Windsurf's accept-line.
+  -- <S-Tab> handles backward snippet jumps via blink.cmp.
 end
 
 return M

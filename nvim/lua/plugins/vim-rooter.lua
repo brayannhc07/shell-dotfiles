@@ -1,6 +1,7 @@
 -- Automatically set the working directory to the project root.
 return {
     "airblade/vim-rooter",
+    event = "VeryLazy",
     config = function()
         vim.cmd('Rooter')
     end,

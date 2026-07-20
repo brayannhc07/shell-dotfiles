@@ -4,21 +4,23 @@ return {
     dependencies = {
         'williamboman/mason.nvim',
     },
+    event = 'VeryLazy',
+    cmd = { 'MasonToolsInstall', 'MasonToolsUpdate' },
     config = function()
         require('mason-tool-installer').setup({
             ensure_installed = {
                 -- Formatters
                 'prettier',       -- JS/TS/React/JSON/CSS/HTML/Markdown
-                'black',          -- Python formatter
-                'isort',          -- Python import sorter
                 'stylua',         -- Lua formatter
                 'shfmt',          -- Shell script formatter
                 'csharpier',      -- C# formatter
-                -- Note: php-cs-fixer needs to be installed separately via composer
+                -- Note: ruff comes via mason-lspconfig (LSP + formatter in one)
 
                 -- Linters
                 'eslint_d',       -- JavaScript/TypeScript linter (faster than eslint)
-                'pylint',         -- Python linter
+
+                -- LSP servers outside mason-lspconfig
+                'roslyn',         -- C# (Crashdummyy registry, used by roslyn.nvim)
             },
             auto_update = false,
             run_on_start = true,

@@ -11,7 +11,7 @@ return {
             javascriptreact = { 'eslint_d' },
             typescript = { 'eslint_d' },
             typescriptreact = { 'eslint_d' },
-            python = { 'pylint' },
+            -- Python linting comes from the ruff LSP (see lsp.lua)
         }
 
         -- Create autocommand to trigger linting

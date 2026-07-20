@@ -4,4 +4,5 @@ return {
     dependencies = {
         "kana/vim-textobj-user",
     },
+    event = "VeryLazy",
 }

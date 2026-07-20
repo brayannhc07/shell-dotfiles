@@ -4,6 +4,10 @@ return {
     dependencies = {
         'kyazdani42/nvim-web-devicons'
     },
+    cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' },
+    keys = {
+        { '<Leader>n', '<cmd>NvimTreeFindFileToggle<CR>', desc = 'File Tree' },
+    },
     config = function()
         require('nvim-tree').setup({
             git = {
@@ -24,7 +28,5 @@ return {
                 width = 60,
             },
         })
-
-        vim.keymap.set('n', '<Leader>n', ':NvimTreeFindFileToggle<CR>')
     end,
 }
