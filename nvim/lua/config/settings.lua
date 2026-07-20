@@ -49,3 +49,22 @@ vim.opt.colorcolumn = '100,120'
 vim.opt.synmaxcol = 500
 
 vim.opt.wildignore:append({"*/node_modules/*"})
+
+-- Disable treesitter for markdown (bundled parser in Neovim 0.12 causes errors)
+local disabled_langs = { markdown = true, markdown_inline = true }
+
+local original_ts_start = vim.treesitter.start
+vim.treesitter.start = function(bufnr, lang, opts)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+    lang = lang or vim.treesitter.language.get_lang(vim.bo[bufnr].filetype)
+    if disabled_langs[lang] then return end
+    return original_ts_start(bufnr, lang, opts)
+end
+
+local original_get_parser = vim.treesitter.get_parser
+vim.treesitter.get_parser = function(bufnr, lang, opts)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+    lang = lang or vim.treesitter.language.get_lang(vim.bo[bufnr].filetype)
+    if disabled_langs[lang] then return nil end
+    return original_get_parser(bufnr, lang, opts)
+end

@@ -90,13 +90,12 @@ return {
         end
 
         local function live_grep_with_telescope()
+            local lga = require('telescope').extensions.live_grep_args.live_grep_args
             if vim.fn.mode() == "v" then
-                -- If in Visual mode, get the selection and grep it
                 local selection = get_visual_selection()
-                require('telescope.builtin').live_grep({ default_text = selection })
+                lga({ default_text = selection })
             else
-                -- If in Normal mode, open find_files
-                require('telescope.builtin').live_grep()
+                lga()
             end
         end
         -- vim.keymap.set('n', '<leader>f', [[<cmd>lua require('telescope.builtin').find_files()<CR>]])

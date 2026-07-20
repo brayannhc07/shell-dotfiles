@@ -13,7 +13,11 @@ return {
     mode = 'cursor', -- Line used to calculate context ('cursor' or 'topline')
     separator = nil, -- Separator between context and content (nil = none)
     zindex = 20, -- Z-index of the context window
-    on_attach = nil, -- Disable for specific filetypes
+    on_attach = function(buf)
+      -- Disable for filetypes that cause parser errors with injected languages
+      local dominated_filetypes = { 'markdown', 'php', 'blade' }
+      return not vim.tbl_contains(dominated_filetypes, vim.bo[buf].filetype)
+    end,
   },
   keys = {
     {
