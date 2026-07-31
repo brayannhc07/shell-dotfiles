@@ -20,10 +20,11 @@ return {
                     separator,
                 },
                 lualine_b = {
-                    'branch',
                     'diff',
                     separator,
-                    '"🖧  " .. tostring(#vim.tbl_keys(vim.lsp.get_clients()))',
+                    function()
+                        return '🖧  ' .. #vim.lsp.get_clients({ bufnr = 0 })
+                    end,
                     { 'diagnostics', sources = { 'nvim_diagnostic' } },
                     separator,
                     function()
@@ -31,7 +32,7 @@ return {
                         if ok then
                             return " " .. status
                         else
-                            return " N/A"
+                            return ''
                         end
                     end,
                 },
@@ -40,17 +41,24 @@ return {
                 },
                 lualine_x = {
                     'filetype',
-                    'encoding',
-                    'fileformat',
+                    -- only shown when the value is abnormal (non-utf8, CRLF)
+                    {
+                        'encoding',
+                        cond = function()
+                            local enc = vim.opt.fileencoding:get()
+                            return enc ~= '' and enc ~= 'utf-8'
+                        end,
+                    },
+                    {
+                        'fileformat',
+                        cond = function()
+                            return vim.bo.fileformat ~= 'unix'
+                        end,
+                    },
                 },
-                lualine_y = {
-                    separator,
-                    '(vim.bo.expandtab and "␠ " or "⇥ ") .. " " .. vim.bo.shiftwidth',
-                    separator,
-                },
+                lualine_y = {},
                 lualine_z = {
                     'location',
-                    'progress',
                 },
             },
         })
